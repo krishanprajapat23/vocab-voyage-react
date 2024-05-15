@@ -131,6 +131,10 @@ body {
   right: 4px;
   top: 44%;
   transform: translateY(-50%);
+  &:active {
+    box-shadow: 0px 2px 0px $linkClr;
+    top: 44%;
+  }
 }
 
 
