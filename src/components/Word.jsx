@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef  } from 'react';
 import PlayBtn from './PlayBtn';
 
 function Word({ word, handleBackHome }) {
-const [audioSrc, setAudioSrc] = useState('');
-const [phoneticText, setPhoneticText] = useState('');
-
+  const [audioSrc, setAudioSrc] = useState('');
+  const [phoneticText, setPhoneticText] = useState('');
+  
+  const audioRef = useRef(null);
 
 
 useEffect(() => {
@@ -21,6 +22,13 @@ useEffect(() => {
 }, []);
 
 
+const handlePlay = () => {
+  if (audioRef.current) {
+    audioRef.current.play();
+  }
+};
+
+
   
   return (
 
@@ -34,10 +42,10 @@ useEffect(() => {
           <span className="text-muted fs-6">{word.phonetic || phoneticText}</span>
           <div className="audio-player">
             {audioSrc && (
-              <audio id="audio" src={audioSrc}></audio>
+              <audio id="audio" src={audioSrc} ref={audioRef}></audio>
             )}
             {audioSrc && (
-              <button id="playBtn" type="button" className="btn border-0"><PlayBtn /></button>
+              <button id="playBtn" type="button" className="btn border-0" onClick={handlePlay}><PlayBtn /></button>
             )}
           </div>
         </div>
